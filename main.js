@@ -23,19 +23,68 @@ const COMBOS = [
 let turn, gameboard, winner;
 /*----- cached references -----*/
 const messageEl = document.getElementById('message');
-const board= document.querySelectorAll('.gameBoard');
+const board= document.querySelectorAll('.gameButton');
 
 /*----- event listeners -----*/
 // document.onclick = xShow();
 // document.onclick.getElementsByClassName('gameButton').innerHTML = 'X';
 // document.onclick = handleButtonClick;
 document.getElementById('gameBoard').addEventListener('click' , handleButtonClick);
-
+document.getElementById('replay').addEventListener('click', init);
 // handles Player Clicks
 function handleButtonClick (e) {
-    console.log (e.target.dataset.index);
+    let selectedIndex = e.target.dataset.index;
+    if (winner || gameboard[selectedIndex]) return;
+    
+    gameboard[selectedIndex] = turn;
+    //toggle  the turn
+    turn *= -1
+    // Check for a winner
+    winner = checkWinner();
+    // Visuualize what hanppened -> render();
+    render();
 }
 
+init();
+
+function  init() {
+    turn = 1;
+    // Must reset gamebooard
+    gameboard = new Array(9).fill(null);
+    // Remove the winner
+    winner = checkWinner(); 
+    // visualize what a new game should look like
+    render();
+}
+
+function checkWinner () {
+    // return true or false
+    for(let i = 0; i < COMBOS.length; i++) {
+        if(Math.abs(gameboard[COMBOS[i][0]]+
+                    gameboard[COMBOS[i][1]]+            
+                    gameboard[COMBOS[i][2]]) === 3) return gameboard[COMBOS[i][0]];
+        }
+        if(gameboard.includes(null)) return false;
+        return 'T';
+}
+
+function render () {
+    // Draw the gameboard
+    gameboard.forEach(function(element, index) {
+        board[index].textContent = KEY[element]
+    });
+    if(!winner) {
+    messageEl.textContent = `${KEY[turn]}'s Turn'`
+    } else if (winner === 'T') {
+        messageEl.textContent = "It's a tie"
+    } else {
+        messageEl.textContent = `${KEY[winner]} is a Winner!`
+    }
+    // Transfer the state of the app to the DOM 
+    console.log('gameboard', gameboard)
+    console.log('turn', turn)
+    
+}
 // function handleButtonClick() {
     // var x = document.getElementById("0").innerHTML;
     // document.getElementById("0").innerHTML = 'x';
