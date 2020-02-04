@@ -1,13 +1,9 @@
 /*----- CONSTANTS -----*/
-// const xShow = document.getElementsByClassName('gameButton');
-// const xShow = document.onclick.getElementsByClassName('gameButton').innerHTML = 'X';
-
 const KEY = {
     '1': 'X',
     '-1': '0',
     'null': ''
 };
-
 const COMBOS = [
     [0,1,2],
     [3,4,5],
@@ -26,9 +22,6 @@ const messageEl = document.getElementById('message');
 const board= document.querySelectorAll('.gameButton');
 
 /*----- event listeners -----*/
-// document.onclick = xShow();
-// document.onclick.getElementsByClassName('gameButton').innerHTML = 'X';
-// document.onclick = handleButtonClick;
 document.getElementById('gameBoard').addEventListener('click' , handleButtonClick);
 document.getElementById('replay').addEventListener('click', init);
 // handles Player Clicks
@@ -85,18 +78,7 @@ function render () {
     console.log('turn', turn)
     
 }
-// function handleButtonClick() {
-    // var x = document.getElementById("0").innerHTML;
-    // document.getElementById("0").innerHTML = 'x';
-    // document.onclick.getElementsByClassName('gameButton').innerHTML = 'X';
-//   }
-// document.getElementsByClassName('gameButton').addEventListener('click' , handleButtonClick)
 
-//Initial state of the game
 
-function start () {
-    let Player1 = 0;
-    let Player2 = 0;
-}
 
 
